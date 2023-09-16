@@ -1,7 +1,7 @@
 from datetime import date
 
 from selenium.common import TimeoutException
-
+from selenium.webdriver.common.keys import Keys
 import utilities as utils
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -11,7 +11,9 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 url = "https://mail.gss.com.tw/zimbra"
 options = webdriver.ChromeOptions()
-options.add_argument("--disable-notifications")
+prefs = {'profile.default_content_setting_values': {'notifications': 2}}
+options.add_experimental_option('prefs', prefs)
+options.add_argument("--disable-infobars")
 driver = webdriver.Chrome(options=options)
 config = utils.read_config()
 account = config.get('account')
@@ -49,25 +51,18 @@ def login():
 
 def send_email():
     driver_click((By.XPATH, '//*[@id="zb__NEW_MENU_title"]'))
-    try:
-        # 等待彈窗出現（如果需要）
-        WebDriverWait(driver, 10).until(EC.alert_is_present())
 
-        # 切換到彈窗
-        alert = driver.switch_to.alert
-
-        # 接受彈窗
-        alert.accept()
-    except TimeoutException:
-        # 如果彈窗未出現，繼續執行其他操作
-        pass
     driver_send_keys((By.XPATH, '//*[@id="zv__COMPOSE-1_to_control"]'), receiver)
-    # for cc in carbon_copy:
-    #     driver_send_keys((By.XPATH, '//*[@id="zv__COMPOSE-1_cc_control"]'), carbon_copy)
+    driver.find_element(By.XPATH, '//*[@id="zv__COMPOSE-1_to_control"]').send_keys(Keys.ENTER)
+    for cc in carbon_copy:
+        driver_send_keys((By.XPATH, '//*[@id="zv__COMPOSE-1_cc_control"]'), cc)
+        driver.find_element(By.XPATH, '//*[@id="zv__COMPOSE-1_cc_control"]').send_keys(Keys.ENTER)
     new_title = utils.generate_title(name, title)
-    driver_send_keys((By.XPATH, '//*[@id="zv__COMPOSE-2_subject_control"]'), new_title)
-    driver_send_keys((By.XPATH, '//*[@id="ZmHtmlEditor2_body"]'), content)
-    driver_click((By.XPATH, '//*[@id="zb__COMPOSE-1__SEND_title"]'))
+    driver_send_keys((By.XPATH, '//*[@id="zv__COMPOSE-1_subject_control"]'), new_title)
+    driver.find_element(By.XPATH, '//*[@id="zv__COMPOSE-1_subject_control"]').send_keys(Keys.ENTER)
+    new_content = utils.generate_numbered_work_log_with_spaces(content)
+    driver_send_keys((By.XPATH, '//*[@id="ZmHtmlEditor1_body"]'), new_content)
+    driver_click((By.XPATH, '// *[ @ id = "zb__COMPOSE-1__SEND_MENU"] / table / tbody / tr'))
     print("Email sent successfully!")
 
 

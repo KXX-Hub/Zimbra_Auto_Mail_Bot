@@ -37,6 +37,22 @@ title: "default"
 # Use space to separate the content.
 content: "default default default"
 
+
+# default Format :
+# MMDD <NAME>工作彙報
+#Dear All,
+#
+#今日工作內容為
+#
+#1. default
+#2. default
+#3. default
+#
+#以上如果有什麼問題再請各位提出來，謝謝。
+#
+#Best regards,
+#Name
+
 #------------------------------------
 
 
