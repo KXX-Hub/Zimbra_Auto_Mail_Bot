@@ -1,6 +1,5 @@
 from datetime import date
 
-from selenium.common import TimeoutException
 from selenium.webdriver.common.keys import Keys
 import utilities as utils
 from selenium import webdriver
@@ -64,6 +63,14 @@ def send_email():
     driver_send_keys((By.XPATH, '//*[@id="ZmHtmlEditor1_body"]'), new_content)
     driver_click((By.XPATH, '// *[ @ id = "zb__COMPOSE-1__SEND_MENU"] / table / tbody / tr'))
     print("Email sent successfully!")
+    print("Receiver: " + receiver)
+    print("Carbon copy: " + str(carbon_copy))
+    print("Title: " + new_title)
+    print("Content: " + new_content)
+    print("Date: " + str(date.today()))
+    print("Name: " + name)
+    print("Will be shut down in 10 seconds...")
+    time.sleep(10)
 
 
 # Press the green button in the gutter to run the script.
