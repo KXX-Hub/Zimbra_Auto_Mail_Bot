@@ -105,7 +105,7 @@ def generate_numbered_work_log_with_spaces(content):
         numbered_content += f"{line_number}. {item}\n"
         line_number += 1
 
-    work_log = f"Dear All,\n\n今日工作內容為\n\n{numbered_content}\n以上如果有什麼問題再請各位提出來，謝謝。\n\nBest regards,\nKai"
+    work_log = f"Dear All,\n\n今日工作內容為\n\n{numbered_content}\n以上如果有什麼問題再請各位提出來，謝謝。\n\nBest regards,\n{read_config().get('name')}"
     return work_log
 
 
