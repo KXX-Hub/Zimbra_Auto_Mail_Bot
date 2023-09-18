@@ -1,25 +1,17 @@
 import sys
 from datetime import date
 from os.path import exists
+
 import yaml
 from yaml import SafeLoader
 
 
-def config_file_generator():
+def email_config_generator():
     """Generate the template of config file"""
     with open('config.yml', 'w', encoding="utf8") as f:
-        f.write("""# | Work_Log_Bot                 |
+        f.write("""# | Zimbra_Auto_Mail_Bot  |
 # | Made by KXX                          |
 # ++------------------------------------++
-
-# Your email account.
-account: "default"
-
-# Your email password.
-password: "default"
-
-# Your name.
-name: "default"
 
 # Who you want to send the work log to.
 # Make the name or email address as the key.
@@ -61,6 +53,54 @@ content: "default default default"
     sys.exit()
 
 
+def config_generator():
+    """Generate the template of config file"""
+    with open('config.yml', 'w', encoding="utf8") as f:
+        f.write("""# | Work_Log_Bot                 |
+# | Made by KXX                          |
+# ++------------------------------------++
+
+# Your email account.
+account: "default"
+
+# Your email password.
+password: "default"
+
+# Your name.
+name: "default"
+
+"""
+                )
+    sys.exit()
+
+
+def read_email_config():
+    """Read email config file.
+    Check if email config file exists, if not, create one.
+    if exists, read email config file and return config with dict type.
+    :rtype: dict
+    """
+    if not exists('./email_config.yml'):
+        print("Email config file not found, create one by default.\nPlease finish filling email_config.yml")
+        with open('email_config.yml', 'w', encoding="utf8"):
+            email_config_generator()
+    try:
+        with open('email_config.yml', 'r', encoding="utf8") as f:
+            data = yaml.load(f, Loader=SafeLoader)
+            email_config = {
+                'receiver': data['receiver'],
+                'carbon_copy': data['carbon_copy'],
+                'title': data['title'],
+                'content': data['content'],
+            }
+            return email_config
+    except (KeyError, TypeError):
+        print(
+            "An error occurred while reading email_config.yml, please check if the file is corrected filled.\n"
+            "If the problem can't be solved, consider delete email_config.yml and restart the program.\n")
+        sys.exit()
+
+
 def read_config():
     """Read config file.
     Check if config file exists, if not, create one.
@@ -70,7 +110,7 @@ def read_config():
     if not exists('./config.yml'):
         print("Config file not found, create one by default.\nPlease finish filling config.yml")
         with open('config.yml', 'w', encoding="utf8"):
-            config_file_generator()
+            config_generator()
 
     try:
         with open('config.yml', 'r', encoding="utf8") as f:
@@ -79,10 +119,6 @@ def read_config():
                 'account': data['account'],
                 'password': data['password'],
                 'name': data['name'],
-                'receiver': data['receiver'],
-                'carbon_copy': data['carbon_copy'],
-                'title': data['title'],
-                'content': data['content'],
             }
             return config
     except (KeyError, TypeError):
