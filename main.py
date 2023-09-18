@@ -1,12 +1,13 @@
+import time
 from datetime import date
 
-from selenium.webdriver.common.keys import Keys
-import utilities as utils
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import time
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
+
+import utilities as utils
 
 url = "https://mail.gss.com.tw/zimbra"
 options = webdriver.ChromeOptions()
@@ -37,6 +38,15 @@ def driver_send_keys(locator, key):
     :param key: Keys to send.
     """
     WebDriverWait(driver, 10).until(EC.presence_of_element_located(locator)).send_keys(key)
+
+
+def initialize_content():
+    """Initialize the content."""
+    global content
+    print("Welcome to the Zimbra_Auto_Mail_Bot!")
+    print("Please enter the content (use space to separate the content) ")
+    content = input("Please enter the content : ")
+    return content
 
 
 def login():
@@ -75,5 +85,6 @@ def send_email():
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    initialize_content()
     login()
     send_email()

@@ -82,7 +82,6 @@ def read_config():
                 'receiver': data['receiver'],
                 'carbon_copy': data['carbon_copy'],
                 'title': data['title'],
-                'content': data['content'],
             }
             return config
     except (KeyError, TypeError):
