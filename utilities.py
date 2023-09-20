@@ -36,8 +36,8 @@ title: "default"
 content_format:
   work_log_header: "Dear All,\n\n今日工作內容為\n\n"
   line_number_prefix: "{line_number}. "
-  work_log_footer: "以上如果有什麼問題再請各位提出來，謝謝。\n\nBest regards,"
-  signature: "\n{name}"
+  work_log_footer: "以上如果有什麼問題再請各位提出來，謝謝。\n\nBest regards,\n\n"
+  signature: "{name}"
 
 # default Format :
 # MMDD <NAME>工作彙報
