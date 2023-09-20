@@ -33,10 +33,11 @@ carbon_copy: "default default default"
 # MMDD <NAME>工作彙報
 title: "default"
 
-# The email content.
-# Use space to separate the content.
-content: "default default default"
-
+content_format:
+  work_log_header: "Dear All,\n\n今日工作內容為\n\n"
+  line_number_prefix: "{line_number}. "
+  work_log_footer: "以上如果有什麼問題再請各位提出來，謝謝。\n\nBest regards,\n"
+  signature: "{name}"
 
 # default Format :
 # MMDD <NAME>工作彙報
@@ -82,6 +83,7 @@ def read_config():
                 'receiver': data['receiver'],
                 'carbon_copy': data['carbon_copy'],
                 'title': data['title'],
+                'content_format': data['content_format']
             }
             return config
     except (KeyError, TypeError):
@@ -96,16 +98,33 @@ def generate_numbered_work_log_with_spaces(content):
     :param content: The content of the work log.
     :return: The numbered work log with spaces.
     """
+    config = read_config()
     items = content.split()
     numbered_content = ""
     line_number = 1
 
+    if isinstance(config["content_format"], dict):
+
+        work_log_format = config["content_format"]
+        work_log_header = work_log_format.get("work_log_header", "")
+        work_log_footer = work_log_format.get("work_log_footer", "")
+        line_number_prefix = work_log_format.get("line_number_prefix", "")
+        name = config["name"]
+    else:
+
+        work_log_header = config.get("work_log_header", "")
+        work_log_footer = config.get("work_log_footer", "")
+        line_number_prefix = config.get("line_number_prefix", "")
+        name = config["name"]
+
     for item in items:
-        numbered_content += f"{line_number}. {item}\n"
+        line_prefix = line_number_prefix.format(line_number=line_number)
+        numbered_content += f"{line_prefix}{item}\n"
         line_number += 1
 
-    work_log = f"Dear All,\n\n今日工作內容為\n\n{numbered_content}\n以上如果有什麼問題再請各位提出來，謝謝。\n\nBest regards,\n{read_config().get('name')}"
+    work_log = f"{work_log_header}{numbered_content}{work_log_footer}{name}\n"
     return work_log
+
 
 
 def generate_title(name, title):

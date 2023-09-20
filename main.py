@@ -22,7 +22,7 @@ name = config.get('name')
 receiver = config.get('receiver')
 carbon_copy = config.get('carbon_copy').split()
 title = config.get('title')
-content = config.get('content')
+
 
 
 def driver_click(locator):
