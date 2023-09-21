@@ -26,17 +26,17 @@ name: "default"
 receiver: "default"
 
 # Who you want to send the carbon copy to.
-# Use space to separate the name or email address.
-carbon_copy: "default default default"
+# Use "&" to separate the name or email address.
+carbon_copy: "default&default&default"
 
 # The email title.
 # MMDD <NAME>工作彙報
 title: "default"
 
 content_format:
-  work_log_header: "Dear All,\n\n今日工作內容為\n\n"
-  line_number_prefix: "{line_number}. "
-  work_log_footer: "以上如果有什麼問題再請各位提出來，謝謝。\n\nBest regards,\n\n"
+  work_log_header: "Dear All,\n\n\n今日工作內容為\n\n\n"
+  line_number_prefix: "{line_number}."
+  work_log_footer: "\n\n以上如果有什麼問題再請各位提出來，謝謝。\n\nBest regards,\n"
   signature: "{name}"
 
 # default Format :
@@ -93,13 +93,13 @@ def read_config():
         sys.exit()
 
 
-def generate_numbered_work_log_with_spaces(content):
+def generate_numbered_work_log(content):
     """Generate numbered work log with spaces.
     :param content: The content of the work log.
-    :return: The numbered work log with spaces.
+    :return: The numbered work log with &.
     """
     config = read_config()
-    items = content.split()
+    items = content.split("&")
     numbered_content = ""
     line_number = 1
 
@@ -124,7 +124,6 @@ def generate_numbered_work_log_with_spaces(content):
 
     work_log = f"{work_log_header}{numbered_content}{work_log_footer}{name}\n"
     return work_log
-
 
 
 def generate_title(name, title):

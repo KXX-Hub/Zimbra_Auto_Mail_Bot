@@ -20,9 +20,8 @@ account = config.get('account')
 password = config.get('password')
 name = config.get('name')
 receiver = config.get('receiver')
-carbon_copy = config.get('carbon_copy').split()
+carbon_copy = config.get('carbon_copy').split("&")
 title = config.get('title')
-
 
 
 def driver_click(locator):
@@ -69,7 +68,7 @@ def send_email():
     new_title = utils.generate_title(name, title)
     driver_send_keys((By.XPATH, '//*[@id="zv__COMPOSE-1_subject_control"]'), new_title)
     driver.find_element(By.XPATH, '//*[@id="zv__COMPOSE-1_subject_control"]').send_keys(Keys.ENTER)
-    new_content = utils.generate_numbered_work_log_with_spaces(content)
+    new_content = utils.generate_numbered_work_log(content)
     driver_send_keys((By.XPATH, '//*[@id="ZmHtmlEditor1_body"]'), new_content)
     driver_click((By.XPATH, '// *[ @ id = "zb__COMPOSE-1__SEND_MENU"] / table / tbody / tr'))
     print("Email sent successfully!")
