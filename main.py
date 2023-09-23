@@ -41,7 +41,7 @@ def driver_send_keys(locator, key):
     WebDriverWait(driver, 10).until(EC.presence_of_element_located(locator)).send_keys(key)
 
 
-def initialize_content():
+def initialize_content_and_send_email():
     """Initialize the content."""
     print("Welcome to the Zimbra_Auto_Mail_Bot!")
     print("Please enter the content (use '&' to separate the content) ")
@@ -110,5 +110,5 @@ def send_email(new_content):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    initialize_content()
+    initialize_content_and_send_email()
 
