@@ -32,12 +32,13 @@ receiver: "default"
 carbon_copy: ""
 
 # The email title.
-# MMDD <NAME>工作彙報
-title: "default"
+# default: MMDD <NAME>工作彙報
+# {DATE} and {NAME} will be auto-replaced by the date and your name.
+title: "{DATE} <{NAME}> 工作彙報"
 
 # If you have a signature, set it to True.
 # If not, set it to False.
-had_signatures: False
+had_signatures: "False"
 
 content_format:
   work_log_header: "Dear All,\n\n\n今日工作內容為\n\n\n"
@@ -117,7 +118,7 @@ def generate_numbered_work_log(content):
         work_log_header = work_log_format.get("work_log_header", "")
         work_log_footer = work_log_format.get("work_log_footer", "")
         line_number_prefix = work_log_format.get("line_number_prefix", "")
-        had_signatures = config.get("had_signatures")
+        had_signatures = config.get("had_signatures").upper()
         name = config["name"]
     else:
 
@@ -125,7 +126,7 @@ def generate_numbered_work_log(content):
         work_log_footer = config.get("work_log_footer", "")
         line_number_prefix = config.get("line_number_prefix", "")
         name = config["name"]
-        had_signatures = config.get("had_signatures").strip().upper()
+        had_signatures = config.get("had_signatures").upper()
 
     for item in items:
         line_prefix = line_number_prefix.format(line_number=line_number)
@@ -146,9 +147,8 @@ def generate_title(name, title):
     if name == "default":
         print("Please fill in your name in config.yml")
         sys.exit()
-    elif title == "default":
-        today_date = date.today().strftime("%m%d")
-        new_title = f"{today_date} <{name}>工作彙報"
-        return new_title
     else:
-        return title
+        formatted_date = date.strftime("%m%d")
+        new_title = title.replace("{NAME}", name)
+        new_title = new_title.replace("{DATE}", formatted_date)
+        return new_title
