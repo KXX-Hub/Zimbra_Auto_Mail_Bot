@@ -1,3 +1,4 @@
+import msvcrt
 import sys
 from datetime import date
 from os.path import exists
@@ -95,6 +96,18 @@ def read_config():
             "An error occurred while reading config.yml, please check if the file is corrected filled.\n"
             "If the problem can't be solved, consider delete config.yml and restart the program.\n")
         sys.exit()
+
+
+# def wait_for_enter_or_esc():
+#     """Wait for enter or esc key.
+#     :return: True if enter key is pressed, False if esc key is pressed.
+#     """
+#     while True:
+#         key = msvcrt.getch()
+#         if key == b'\r':  # Enter
+#             return True
+#         elif key == b'\x1b':  # Esc
+#             return False
 
 
 def generate_numbered_work_log(content):

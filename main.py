@@ -1,3 +1,4 @@
+import sys
 import time
 from datetime import date
 
@@ -22,6 +23,7 @@ name = config.get('name')
 receiver = config.get('receiver')
 carbon_copy = config.get('carbon_copy').split("&")
 title = config.get('title')
+new_title = utils.generate_title(name, title)
 
 
 def driver_click(locator):
@@ -41,11 +43,36 @@ def driver_send_keys(locator, key):
 
 def initialize_content():
     """Initialize the content."""
-    global content
     print("Welcome to the Zimbra_Auto_Mail_Bot!")
-    print("Please enter the content (use space to separate the content) ")
+    print("Please enter the content (use '&' to separate the content) ")
     content = input("Please enter the content : ")
-    return content
+    new_content = utils.generate_numbered_work_log(content)
+    while True:
+        confirm = input("Do you want to preview and confirm the email before sending? (Y/N): ").strip().upper()
+        if confirm == "Y":
+            print("Previewing the email:")
+            print("Receiver: " + receiver)
+            print("Carbon copy: " + str(carbon_copy))
+            print("Title: " + new_title)
+            print("Content: " + new_content)
+            print("Date: " + str(date.today()))
+            print("Name: " + name)
+
+            confirm_send = input("Do you want to send the email? (Y/N): ").strip().upper()
+            if confirm_send == "Y":
+                login()
+                send_email(new_content)
+                break
+            else:
+                print("Email sending canceled.")
+                print("Will be shut down in 10 seconds...")
+                break
+        elif confirm == "N":
+            print("Email sending canceled.")
+            print("Will be shut down in 10 seconds...")
+            break
+        else:
+            print("Please enter 'Y' or 'N'.")
 
 
 def login():
@@ -57,18 +84,17 @@ def login():
     print("Login successfully!")
 
 
-def send_email():
+def send_email(new_content):
     driver_click((By.XPATH, '//*[@id="zb__NEW_MENU_title"]'))
-
     driver_send_keys((By.XPATH, '//*[@id="zv__COMPOSE-1_to_control"]'), receiver)
     driver.find_element(By.XPATH, '//*[@id="zv__COMPOSE-1_to_control"]').send_keys(Keys.ENTER)
     for cc in carbon_copy:
         driver_send_keys((By.XPATH, '//*[@id="zv__COMPOSE-1_cc_control"]'), cc)
         driver.find_element(By.XPATH, '//*[@id="zv__COMPOSE-1_cc_control"]').send_keys(Keys.ENTER)
-    new_title = utils.generate_title(name, title)
+
     driver_send_keys((By.XPATH, '//*[@id="zv__COMPOSE-1_subject_control"]'), new_title)
     driver.find_element(By.XPATH, '//*[@id="zv__COMPOSE-1_subject_control"]').send_keys(Keys.ENTER)
-    new_content = utils.generate_numbered_work_log(content)
+
     driver_send_keys((By.XPATH, '//*[@id="ZmHtmlEditor1_body"]'), new_content)
     driver_click((By.XPATH, '// *[ @ id = "zb__COMPOSE-1__SEND_MENU"] / table / tbody / tr'))
     print("Email sent successfully!")
@@ -85,5 +111,4 @@ def send_email():
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     initialize_content()
-    login()
-    send_email()
+
