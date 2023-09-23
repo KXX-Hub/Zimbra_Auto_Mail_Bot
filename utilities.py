@@ -33,10 +33,13 @@ carbon_copy: "default&default&default"
 # MMDD <NAME>工作彙報
 title: "default"
 
+# If you have a signature, set it to true.
+had_signatures: false
+
 content_format:
   work_log_header: "Dear All,\n\n\n今日工作內容為\n\n\n"
   line_number_prefix: "{line_number}."
-  work_log_footer: "\n\n以上如果有什麼問題再請各位提出來，謝謝。\n\nBest regards,\n"
+  work_log_footer: "\n\n以上如果有什麼問題再請各位提出來，謝謝。\n\nBest regards,\n\n"
   signature: "{name}"
 
 # default Format :
@@ -83,7 +86,8 @@ def read_config():
                 'receiver': data['receiver'],
                 'carbon_copy': data['carbon_copy'],
                 'title': data['title'],
-                'content_format': data['content_format']
+                'content_format': data['content_format'],
+                'had_signatures': data['had_signatures']
             }
             return config
     except (KeyError, TypeError):
@@ -98,6 +102,7 @@ def generate_numbered_work_log(content):
     :param content: The content of the work log.
     :return: The numbered work log with &.
     """
+    global work_log
     config = read_config()
     items = content.split("&")
     numbered_content = ""
@@ -109,6 +114,7 @@ def generate_numbered_work_log(content):
         work_log_header = work_log_format.get("work_log_header", "")
         work_log_footer = work_log_format.get("work_log_footer", "")
         line_number_prefix = work_log_format.get("line_number_prefix", "")
+        had_signatures = config.get("had_signatures")
         name = config["name"]
     else:
 
@@ -116,13 +122,16 @@ def generate_numbered_work_log(content):
         work_log_footer = config.get("work_log_footer", "")
         line_number_prefix = config.get("line_number_prefix", "")
         name = config["name"]
+        had_signatures = config.get("had_signatures")
 
     for item in items:
         line_prefix = line_number_prefix.format(line_number=line_number)
         numbered_content += f"{line_prefix}{item}\n"
         line_number += 1
-
-    work_log = f"{work_log_header}{numbered_content}{work_log_footer}{name}\n"
+    if had_signatures:
+        work_log = f"{work_log_header}{numbered_content}"
+    if not had_signatures:
+        work_log = f"{work_log_header}{numbered_content}{work_log_footer}{name}\n"
     return work_log
 
 
