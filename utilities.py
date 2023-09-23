@@ -98,18 +98,6 @@ def read_config():
         sys.exit()
 
 
-# def wait_for_enter_or_esc():
-#     """Wait for enter or esc key.
-#     :return: True if enter key is pressed, False if esc key is pressed.
-#     """
-#     while True:
-#         key = msvcrt.getch()
-#         if key == b'\r':  # Enter
-#             return True
-#         elif key == b'\x1b':  # Esc
-#             return False
-
-
 def generate_numbered_work_log(content):
     """Generate numbered work log with spaces.
     :param content: The content of the work log.
