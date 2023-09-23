@@ -28,14 +28,16 @@ receiver: "default"
 
 # Who you want to send the carbon copy to.
 # Use "&" to separate the name or email address.
-carbon_copy: "default&default&default"
+# example : "default&default&default"
+carbon_copy: ""
 
 # The email title.
 # MMDD <NAME>工作彙報
 title: "default"
 
-# If you have a signature, set it to true.
-had_signatures: false
+# If you have a signature, set it to True.
+# If not, set it to False.
+had_signatures: False
 
 content_format:
   work_log_header: "Dear All,\n\n\n今日工作內容為\n\n\n"
@@ -123,15 +125,15 @@ def generate_numbered_work_log(content):
         work_log_footer = config.get("work_log_footer", "")
         line_number_prefix = config.get("line_number_prefix", "")
         name = config["name"]
-        had_signatures = config.get("had_signatures")
+        had_signatures = config.get("had_signatures").strip().upper()
 
     for item in items:
         line_prefix = line_number_prefix.format(line_number=line_number)
         numbered_content += f"{line_prefix}{item}\n"
         line_number += 1
-    if had_signatures:
+    if had_signatures == "TRUE":
         work_log = f"{work_log_header}{numbered_content}"
-    if not had_signatures:
+    elif had_signatures == "FALSE":
         work_log = f"{work_log_header}{numbered_content}{work_log_footer}{name}\n"
     return work_log
 
