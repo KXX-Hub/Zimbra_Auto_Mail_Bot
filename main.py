@@ -47,9 +47,10 @@ def initialize_content_and_send_email():
     print("Please enter the content (use '&' to separate the content) ")
     content = input("Please enter the content : ")
     new_content = utils.generate_numbered_work_log(content)
+    is_confirm = False
+    confirm_send = ""
     while True:
-        confirm = input("Do you want to preview and confirm the email before sending? (Y/N): ").strip().upper()
-        if confirm == "Y":
+        if not is_confirm:
             print("Previewing the email:")
             print("Receiver: " + receiver)
             print("Carbon copy: " + str(carbon_copy))
@@ -57,22 +58,19 @@ def initialize_content_and_send_email():
             print("Content: " + new_content)
             print("Date: " + str(date.today()))
             print("Name: " + name)
-
             confirm_send = input("Do you want to send the email? (Y/N): ").strip().upper()
-            if confirm_send == "Y":
-                login()
-                send_email(new_content)
-                break
-            else:
-                print("Email sending canceled.")
-                print("Will be shut down in 10 seconds...")
-                break
-        elif confirm == "N":
-            print("Email sending canceled.")
-            print("Will be shut down in 10 seconds...")
+        if confirm_send == "Y":
+            login()
+            send_email(new_content)
             break
+        elif confirm_send == "N":
+            content = input("Please enter the content : ")
+            new_content = utils.generate_numbered_work_log(content)
+            continue
         else:
-            print("Please enter 'Y' or 'N'.")
+            is_confirm = True
+            confirm_send = input("Please enter 'Y' or 'N':").strip().upper()
+
 
 
 def login():

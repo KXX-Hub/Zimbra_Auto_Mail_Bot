@@ -106,7 +106,7 @@ def generate_numbered_work_log(content):
     :param content: The content of the work log.
     :return: The numbered work log with &.
     """
-    global work_log
+    work_log = ""
     config = read_config()
     items = content.split("&")
     numbered_content = ""
@@ -148,7 +148,7 @@ def generate_title(name, title):
         print("Please fill in your name in config.yml")
         sys.exit()
     else:
-        formatted_date = date.strftime("%m%d")
+        formatted_date = date.today().strftime("%m%d")
         new_title = title.replace("{NAME}", name)
         new_title = new_title.replace("{DATE}", formatted_date)
         return new_title
