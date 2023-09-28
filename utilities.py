@@ -9,8 +9,9 @@ from yaml import SafeLoader
 def config_file_generator():
     """Generate the template of config file"""
     with open('config.yml', 'w', encoding="utf8") as f:
-        f.write("""# | Zimbra_Auto_Mail_Bot               |
-# | Made by KXX                          |
+        f.write("""# ++------------------------------------++
+# | Zimbra_Auto_Mail_Bot               |
+# | Made by KXX                        |
 # ++------------------------------------++
 
 # Your email account.
