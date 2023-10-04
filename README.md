@@ -1,12 +1,16 @@
 # Zimbra Auto Mail Bot
 📖[中文版README.md](#Zimbra自動寄信機器人)📖
-## Description
-This is a simple bot that can send emails to multiple recipients Which is made by python selenium.
-<img width="450" src="./readme_imgs/front cover.jpg">
+
+## This is a straightforward bot that uses Python Selenium to send emails to multiple recipients, providing you with a faster email sending experience.
+<img width="700" src="./readme_imgs/front cover.jpg">
+
 ## How to use
+
 ### Requirements
+
 - selenium==4.11.2
 - PyYAML==6.0.1
+
 ### About Config
 ```
 account: "Your email account"
@@ -75,10 +79,10 @@ Name
 * Add a trailing blank line at the end of files.
 * Optimize code and remove unnecessary imports.
 * Use the following format for commit messages and write them in English:
--- Update - your commit messages here
--- Fix bug - your commit messages here
--- Optimize - your commit messages here
--- Standardize - your commit messages here
+  * Update - your commit messages here
+  * Fix bug - your commit messages here
+  * Optimize - your commit messages here
+  * Standardize - your commit messages here
 
 ### Suggestions/Issue Reporting
 
@@ -87,14 +91,19 @@ section, and I will respond as soon as possible!
 
 # Zimbra自動寄信機器人
 📖[英文版README.md](#ZimbraAutMailBot)📖
-## 簡介
-這是一個可以使用Python Selenium向多個收件人發送電子郵件的簡單機器人，提供你更快速的寄信體驗。
-<img width="450" src="./readme_imgs/front cover.jpg">
+## 這是一個可以使用Python Selenium向多個收件人發送電子郵件的機器人，提供更快速的寄信體驗。
+
+<img width="700" src="./readme_imgs/front cover.jpg">
+
 ## 如何使用
+
 ### requirements
+
 - selenium==4.11.2
 - PyYAML==6.0.1
+
 ### 關於Config
+
 ```
 account: "您的電子郵件帳戶"
 password: "您的電子郵件密碼"
@@ -105,6 +114,7 @@ title: "{DATE} <{NAME}> 工作報告"  # 電子郵件標題。
 had_signatures: "False"  # 如果您有簽名，請將其設置為True。如果沒有，請將其設置為False。
 ```
 ### 初始格式
+  
 ```
 MMDD <NAME>工作彙報
 Dear All,
@@ -129,6 +139,7 @@ Name
 5. 享受超高速傳送電子郵件。
 
 ## 貢獻
+
 ### 如何貢獻
 
 1. Fork這個專案。 
@@ -140,15 +151,17 @@ Name
 7. 等待回覆。
 
 ### Code Writing/Commit 規則
+
 * 每行不超過100個字符。
 * 變數和函數名稱使用snake_case。
 * 在文件末尾添加一個空行。
 * 優化代碼並刪除不必要的導入。
 * 使用以下格式編寫提交消息並以英語撰寫：
--- Update - 在此處寫入您的提交消息
--- Fix bug - 在此處寫入您的提交消息
--- Optimize - 在此處寫入您的提交消息
--- Standardize - 在此處寫入您的提交消息
+  * Update - 在此處寫入您的提交消息
+  * Fix bug - 在此處寫入您的提交消息
+  * Optimize - 在此處寫入您的提交消息
+  * Standardize - 在此處寫入您的提交消息
 
 ### 建議/問題報告
+
 如果您有任何建議或發現任何問題，請在[Issues](https://github.com/KXX-Hub/Zimbra_Auto_Mail_Bot/issues)提交您的反饋，我會盡快回覆！
