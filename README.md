@@ -31,7 +31,9 @@ carbon_copy: ""
 # default: MMDD <NAME>工作彙報
 # {DATE} and {NAME} will be auto-replaced by the date and your name.
 title: "{DATE} <{NAME}> 工作彙報"
+```
 
+```
 # If you have a signature, set it to True.
 # If not, set it to False.
 had_signatures: "False"
@@ -111,6 +113,9 @@ name: "您的姓名"
 receiver: ""  # 您要發送工作日誌的收件人。
 carbon_copy: ""  # 您要副本抄送的人。
 title: "{DATE} <{NAME}> 工作報告"  # 電子郵件標題。
+```
+
+```
 had_signatures: "False"  # 如果您有簽名，請將其設置為True。如果沒有，請將其設置為False。
 ```
 ### 初始格式
