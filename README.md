@@ -1,4 +1,4 @@
-# Zimbra Auto Mail Bot
+# ZimbraAutoMailBot
 📖[中文版README.md](#Zimbra自動寄信機器人)📖
 
 ## This is a straightforward bot that uses Python Selenium to send emails to multiple recipients, providing you with a faster email sending experience.
@@ -90,7 +90,7 @@ If you have any suggestions or discover any issues, please submit your feedback 
 section, and I will respond as soon as possible!
 
 # Zimbra自動寄信機器人
-📖[英文版README.md](#ZimbraAutMailBot)📖
+📖[英文版README.md](#ZimbraAutoMailBot)📖
 ## 這是一個可以使用Python Selenium向多個收件人發送電子郵件的機器人，提供更快速的寄信體驗。
 
 <img width="700" src="./readme_imgs/front cover.jpg">
