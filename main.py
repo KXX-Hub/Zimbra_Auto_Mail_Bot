@@ -72,7 +72,6 @@ def initialize_content_and_send_email():
             confirm_send = input("Please enter 'Y' or 'N':").strip().upper()
 
 
-
 def login():
     driver.get(url)
     driver.maximize_window()
@@ -82,19 +81,36 @@ def login():
     print("Login successfully!")
 
 
+def bot_send_email(new_content, compose_version):
+    # Enter the receiver's email address
+    driver_send_keys((By.XPATH, f'//*[@id="zv__COMPOSE-{compose_version}_to_control"]'), receiver)
+    driver.find_element(By.XPATH, f'//*[@id="zv__COMPOSE-{compose_version}_to_control"]').send_keys(Keys.ENTER)
+
+    # Enter carbon copy (cc) email addresses
+    for cc in carbon_copy:
+        driver_send_keys((By.XPATH, f'//*[@id="zv__COMPOSE-{compose_version}_cc_control"]'), cc)
+        driver.find_element(By.XPATH, f'//*[@id="zv__COMPOSE-{compose_version}_cc_control"]').send_keys(Keys.ENTER)
+
+    driver_send_keys((By.XPATH, f'//*[@id="zv__COMPOSE-{compose_version}_subject_control"]'), new_title)
+    driver.find_element(By.XPATH, f'//*[@id="zv__COMPOSE-{compose_version}_subject_control"]').send_keys(Keys.ENTER)
+
+    driver_send_keys((By.XPATH, f'//*[@id="ZmHtmlEditor{compose_version}_body"]'), new_content)
+    driver_click((By.XPATH, f'// *[ @ id = "zb__COMPOSE-{compose_version}__SEND_MENU"] / table / tbody / tr'))
+
+
+def determine_compose_version():
+    for compose_version in range(1,10000):
+        # Check if the "Send" button is present
+        current_compose_version = driver.find_elements(By.XPATH, f'//*[@id="zv__COMPOSE-{compose_version}_to_control"]')
+
+        if current_compose_version:
+            return compose_version
+
+
 def send_email(new_content):
     driver_click((By.XPATH, '//*[@id="zb__NEW_MENU_title"]'))
-    driver_send_keys((By.XPATH, '//*[@id="zv__COMPOSE-1_to_control"]'), receiver)
-    driver.find_element(By.XPATH, '//*[@id="zv__COMPOSE-1_to_control"]').send_keys(Keys.ENTER)
-    for cc in carbon_copy:
-        driver_send_keys((By.XPATH, '//*[@id="zv__COMPOSE-1_cc_control"]'), cc)
-        driver.find_element(By.XPATH, '//*[@id="zv__COMPOSE-1_cc_control"]').send_keys(Keys.ENTER)
-
-    driver_send_keys((By.XPATH, '//*[@id="zv__COMPOSE-1_subject_control"]'), new_title)
-    driver.find_element(By.XPATH, '//*[@id="zv__COMPOSE-1_subject_control"]').send_keys(Keys.ENTER)
-
-    driver_send_keys((By.XPATH, '//*[@id="ZmHtmlEditor1_body"]'), new_content)
-    driver_click((By.XPATH, '// *[ @ id = "zb__COMPOSE-1__SEND_MENU"] / table / tbody / tr'))
+    compose_version = int(determine_compose_version())
+    bot_send_email(new_content, compose_version)
     print("Email sent successfully!")
     print("Receiver: " + receiver)
     print("Carbon copy: " + str(carbon_copy))
@@ -109,4 +125,3 @@ def send_email(new_content):
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     initialize_content_and_send_email()
-
