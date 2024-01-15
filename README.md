@@ -55,7 +55,7 @@ Best regards,
 Name
 ```
 ### How to run
-1. Clone this repository or download the [latest release](https://github.com/KXX-Hub/Line_Gas_Notify/releases)
+1. Clone this repository or download the [latest release](https://github.com/KXX-Hub/Zimbra_Auto_Mail_Bot/releases/tag/0.1.1)
 2. Install all pakages in requirements.txt
 3. Edit config.yml (If don't have, **run main.py** and it will auto create one.)
 4. Run main.py and enter the content of the email.(use **&** to separate account and content)
