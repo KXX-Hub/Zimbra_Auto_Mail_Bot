@@ -137,7 +137,7 @@ Name
 ```
 ### 如何執行
 
-1. Clone 此 repo或下載[最新版本](https://github.com/KXX-Hub/Line_Gas_Notify/releases)。
+1. Clone 此 repo或下載[最新版本](https://github.com/KXX-Hub/Zimbra_Auto_Mail_Bot/releases/tag/0.1.1)。
 2. 安裝requirements.txt中的所有packages。
 3. 編輯config.yml（若沒有，請運行main.py自動創建一個）。
 4. 運行main.py，並輸入電子郵件的內文（使用 **&** 分隔帳戶和內容）。
