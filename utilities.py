@@ -1,9 +1,16 @@
-import msvcrt
 import sys
+import time
 from datetime import date
 from os.path import exists
 import yaml
 from yaml import SafeLoader
+
+class Utilities:
+
+    @staticmethod
+    def ShutdownAfterXSecond(sec):
+        time.sleep(sec)
+        sys.exit()
 
 
 def config_file_generator():
