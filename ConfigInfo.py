@@ -9,9 +9,9 @@ class ConfigInfo:
         self.IsConfigExist()
         self.configPath = "./config.yml"
 
-    def IsConfigExist(self):
+    def GetInfo(self):
         if exists(self.configPath) :
-            self.ReadConfig()
+            return self.ReadConfig()
         else:
             self.GenerateConfig()
 
@@ -27,7 +27,7 @@ class ConfigInfo:
                 'carbon_copy': data['carbon_copy'],
                 'title': data['title'],
                 'content_format': data['content_format'],
-                'had_signatures': data['had_signatures']
+                'has_signatures': data['has_signatures']
             }
             return config
         
@@ -65,7 +65,7 @@ class ConfigInfo:
             defaultFormat += "\n"
             defaultFormat += "# If you have a signature, set it to True.\n"
             defaultFormat += "# If not, set it to False.\n"
-            defaultFormat += "had_signatures: \"False\"\n"
+            defaultFormat += "has_signatures: \"False\"\n"
             defaultFormat += "\n"
             defaultFormat += "content_format:\n"
             defaultFormat += "  work_log_header: \"Dear All,\n\n\n今日工作內容為\n\n\n\"\n"
