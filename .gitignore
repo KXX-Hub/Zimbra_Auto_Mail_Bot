@@ -1,3 +1,5 @@
 config.yml
 .censitive
 /__pycache__
+.project
+old_main.py
