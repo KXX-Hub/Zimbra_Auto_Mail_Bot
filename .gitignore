@@ -1,4 +1,10 @@
 config.yml
-__pycache__/
 .censitive
+__pycache__/
 .project
+src/old_main.py
+/build
+/dist
+/content.txt
+/temp
+main.spec
